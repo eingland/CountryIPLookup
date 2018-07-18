@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,6 +15,16 @@ namespace CountryIPLookup.Pages
 
         [BindProperty]
         public IPModel IP { get; set; }
+
+        private IHostingEnvironment _hostingEnvironment;
+
+        private string projectRootFolder;
+
+        public IndexModel(IHostingEnvironment env)
+        {
+            _hostingEnvironment = env;
+            projectRootFolder = env.ContentRootPath;
+        }
 
         public void OnGet()
         {
@@ -30,7 +41,7 @@ namespace CountryIPLookup.Pages
         public async Task GetCountryCode(string address)
         {
             await Task.Run(() => {
-                var lines = System.IO.File.ReadAllLines(Path.Combine("Assets", "dbip-country-2018-07.csv")).Select(a => a.Split(';'));
+                var lines = System.IO.File.ReadAllLines(Path.Combine(projectRootFolder, "wwwroot/assets/dbip-country-2018-07.csv")).Select(a => a.Split(';'));
                 var csv = from line in lines
                           select (line[0].Split(',')).ToArray();
                 var code = from range in csv

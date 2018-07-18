@@ -9,6 +9,10 @@
   </Target>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\dbip-country-2018-07.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
