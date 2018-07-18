@@ -2,17 +2,22 @@
 const concat = require('gulp-concat');
 
 const vendorStyles = [
-    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.min.css"
 ];
 const vendorScripts = [
     "node_modules/jquery/dist/jquery.min.js",
     "node_modules/popper.js/dist/umd/popper.min.js",
-    "node_modules/bootstrap/dist/js/bootstrap.min.js",
+    "node_modules/bootstrap/dist/js/bootstrap.min.js"
 ];
+
+const copyImgs = [
+    "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.png"
+]
 
 gulp.task('default', ['build-vendor']);
 
-gulp.task('build-vendor', ['build-vendor-css', 'build-vendor-js']);
+gulp.task('build-vendor', ['build-vendor-css', 'build-vendor-js', 'build-vendor-img']);
 
 gulp.task('build-vendor-css', () => {
   return gulp.src(vendorStyles)
@@ -25,3 +30,9 @@ gulp.task('build-vendor-js', () => {
       .pipe(concat('vendor.js'))
       .pipe(gulp.dest('wwwroot'));
 });
+
+gulp.task('build-vendor-img', () => {
+  return gulp.src(copyImgs)
+      .pipe(concat('famfamfam-flags.png'))
+      .pipe(gulp.dest('wwwroot'));
+})

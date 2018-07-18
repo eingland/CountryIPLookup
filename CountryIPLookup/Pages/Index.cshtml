@@ -3,16 +3,20 @@
 @{
     ViewData["Title"] = "IP Country Lookup";
 }
-    <h2 class="text-primary">Lookup Country by IP Address</h2>
+    <h2 class="text-primary text-center">Lookup Country by IP Address</h2>
 
-    <div class="text-center">
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="IP.Address">IP Address: </label>
-            <input class="form-control" asp-for="IP.Address" type="text" />
-            <input class="btn btn-primary" type="submit" value="Submit" />
+    <div class="row">
+        <div class="col-xs-1 mx-auto text-center">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="IP.Address">IP Address: </label>
+                    <input class="form-control" asp-for="IP.Address" type="text" />
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            </form>
         </div>
-    </form>
     </div>
 
     @if (Model.IP != null)
