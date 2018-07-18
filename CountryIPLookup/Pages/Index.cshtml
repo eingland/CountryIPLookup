@@ -3,14 +3,22 @@
 @{
     ViewData["Title"] = "IP Country Lookup";
 }
+    <h2 class="text-primary">Lookup Country by IP Address</h2>
 
-<form method="post">
-    <label asp-for="IP.Address" >IP Address: </label>
-    <input asp-for="IP.Address" type="text" />
-    <input type="submit" value="Submit" />
-</form>
+    <div class="text-center">
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="IP.Address">IP Address: </label>
+            <input class="form-control" asp-for="IP.Address" type="text" />
+            <input class="btn btn-primary" type="submit" value="Submit" />
+        </div>
+    </form>
+    </div>
 
-@if (Model.IP != null)
-{<p>IP is from Country @Model.IP.CountryCode</p>}
+    @if (Model.IP != null)
+    {<div class="text-center">
+        <p>IP is from Country @Model.IP.CountryCode <span class="famfamfam-flags @Model.IP.CountryCode.ToLower() d-inline-block"></span></p>
+     </div>}
 
-<a href='https://db-ip.com'>IP Geolocation by DB-IP</a>
+
+    <div class="text-center"><a href='https://db-ip.com'>IP Geolocation by DB-IP</a></div>
