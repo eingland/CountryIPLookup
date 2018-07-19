@@ -46,11 +46,12 @@ namespace CountryIPLookup.Pages
         public async Task GetCountryCode(string address)
         {
             await Task.Run(() => {
+                var uintaddress = ConvertIPToUint(address);
                 var lines = System.IO.File.ReadAllLines(Path.Combine(projectRootFolder, "wwwroot/assets/dbip-country-2018-07.csv")).Select(a => a.Split(';'));
                 var csv = from line in lines
-                          select (line[0].Split(',')).ToArray();
+                          select (line[0].Replace("\"", "").Split(',')).ToArray();
                 var code = from range in csv
-                           where ConvertIPToUint(range[0]) > ConvertIPToUint(address) && ConvertIPToUint(range[1]) < ConvertIPToUint(address)
+                           where ConvertIPToUint(range[0]) <= uintaddress && ConvertIPToUint(range[1]) >= uintaddress
                            select (range[2]);
                 IP.CountryCode = code.First().Replace("\"", "");
             });
@@ -58,13 +59,12 @@ namespace CountryIPLookup.Pages
 
         static public uint ConvertIPToUint(string ipAddress)
         {
-            ipAddress = ipAddress.Replace("\"", "");
             System.Net.IPAddress iPAddress = System.Net.IPAddress.Parse(ipAddress);
             byte[] byteIP = iPAddress.GetAddressBytes();
-            uint ipInUint = (uint)byteIP[3] << 24;
-            ipInUint += (uint) byteIP[2] << 16;
-            ipInUint += (uint) byteIP[1] << 8;
-            ipInUint += (uint) byteIP[0];
+            uint ipInUint = (uint)byteIP[0] * (256 * 256 * 256);
+            ipInUint += (uint) byteIP[1] * (256 * 256);
+            ipInUint += (uint) byteIP[2] * 256;
+            ipInUint += (uint) byteIP[3];
             return ipInUint;
         }
 }
