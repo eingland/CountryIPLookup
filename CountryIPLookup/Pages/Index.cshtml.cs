@@ -33,6 +33,11 @@ namespace CountryIPLookup.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             await GetCountryCode(IP.Address);
 
             return Page();
@@ -66,7 +71,7 @@ namespace CountryIPLookup.Pages
 
     public class IPModel
     {
-        [Required]
+        [RegularExpression(@"^(([01]?\d\d?|2[0-4]\d|25[0-5])\.){3}([01]?\d\d?|25[0-5]|2[0-4]\d)$"), Required]
         public string Address { get; set; }
         public string CountryCode { get; set; }
     }

@@ -11,6 +11,7 @@
                 <div class="form-group">
                     <label asp-for="IP.Address">IP Address: </label>
                     <input class="form-control" asp-for="IP.Address" type="text" />
+                    <span asp-validation-for="IP.Address" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="Submit" />
