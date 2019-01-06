@@ -9,10 +9,6 @@
   </Target>
 
   <ItemGroup>
-    <Content Remove="package-lock.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\assets\dbip-country-2018-07.csv" />
   </ItemGroup>
 
