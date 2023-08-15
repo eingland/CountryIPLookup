@@ -1,0 +1,29 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "IP Country Lookup";
+}
+    <h2 class="text-primary text-center">Lookup Country by IP Address</h2>
+
+    <div class="row">
+        <div class="col-xs-1 mx-auto text-center">
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="IP.Address">IP Address: </label>
+                    <input class="form-control" asp-for="IP.Address" type="text" />
+                    <span asp-validation-for="IP.Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.IP != null)
+    {<div class="text-center">
+        <p>IP @Model.IP.Address is from Country @Model.IP.CountryCode <span class="famfamfam-flags @Model.IP.CountryCode.ToLower() d-inline-block"></span></p>
+     </div>}
+
+
+    <div class="text-center"><a href='https://db-ip.com'>IP Geolocation by DB-IP</a></div>
